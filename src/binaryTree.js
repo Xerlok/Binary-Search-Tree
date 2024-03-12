@@ -1,5 +1,6 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable radix */
-/* eslint-disable */
+
 import TreeNode from './treeNode';
 import sortArray from './sortArray';
 
@@ -73,14 +74,17 @@ export default class BinaryTree {
     if (currentNode === null) { throw new Error('No such data!'); }
 
     if (currentNode.leftNode === null && currentNode.rightNode === null) {
+      if (previousNode === null) { this.root = null; }
       if (previousNode.leftNode === currentNode) {
         previousNode.leftNode = null;
       } else { previousNode.rightNode = null; }
     } else if (currentNode.leftNode !== null && currentNode.rightNode === null) {
+      if (previousNode === null) { this.root = currentNode.leftNode; }
       if (previousNode.leftNode === currentNode) {
         previousNode.leftNode = currentNode.leftNode;
       } else { previousNode.rightNode = currentNode.leftNode; }
     } else if (currentNode.rightNode !== null && currentNode.leftNode === null) {
+      if (previousNode === null) { this.root = currentNode.rightNode; }
       if (previousNode.leftNode === currentNode) {
         previousNode.leftNode = currentNode.rightNode;
       } else { previousNode.rightNode = currentNode.rightNode; }
