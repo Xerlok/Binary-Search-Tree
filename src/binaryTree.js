@@ -10,7 +10,7 @@ export default class BinaryTree {
   }
 
   buildTree(array) {
-    let arr = sortArray(array);
+    const arr = sortArray(array);
     const arrStart = 0;
     const arrEnd = arr.length - 1;
 
@@ -59,34 +59,31 @@ export default class BinaryTree {
 
     let currentNode = this.root;
     let previousNode = null;
-    let parentBranch = null;
 
     while (data !== currentNode.data) {
       if (data < currentNode.data) {
         previousNode = currentNode;
         currentNode = currentNode.leftNode;
-        parentBranch = 'left';
       } else if (data > currentNode.data) {
         previousNode = currentNode;
         currentNode = currentNode.rightNode;
-        parentBranch = 'right';
       }
     }
 
     if (currentNode === null) { throw new Error('No such data!'); }
 
     if (currentNode.leftNode === null && currentNode.rightNode === null) {
-      if (parentBranch === 'left') {
+      if (previousNode.leftNode === currentNode) {
         previousNode.leftNode = null;
-      } else if (parentBranch === 'right') { previousNode.rightNode = null; }
+      } else { previousNode.rightNode = null; }
     } else if (currentNode.leftNode !== null && currentNode.rightNode === null) {
-      if (parentBranch === 'left') {
+      if (previousNode.leftNode === currentNode) {
         previousNode.leftNode = currentNode.leftNode;
-      } else if (parentBranch === 'right') { previousNode.rightNode = currentNode.leftNode; }
+      } else { previousNode.rightNode = currentNode.leftNode; }
     } else if (currentNode.rightNode !== null && currentNode.leftNode === null) {
-      if (parentBranch === 'left') {
+      if (previousNode.leftNode === currentNode) {
         previousNode.leftNode = currentNode.rightNode;
-      } else if (parentBranch === 'right') { previousNode.rightNode = currentNode.rightNode; }
+      } else { previousNode.rightNode = currentNode.rightNode; }
     } else if (currentNode.rightNode !== null && currentNode.leftNode !== null) {
       if (currentNode.rightNode.leftNode === null) {
         currentNode.data = currentNode.rightNode.data;
@@ -97,7 +94,6 @@ export default class BinaryTree {
         inheritingChild.previousNode.leftNode = inheritingChild.node.rightNode;
       }
     }
-
   }
 
   findSmallestChildNode(startNode) {
@@ -109,7 +105,7 @@ export default class BinaryTree {
       node = node.leftNode;
     }
 
-    return { node, previousNode }
+    return { node, previousNode };
   }
 
   // print tree in the console
