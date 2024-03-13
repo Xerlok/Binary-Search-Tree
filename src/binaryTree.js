@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable radix */
-
+/* eslint-disable */
 import TreeNode from './treeNode';
 import sortArray from './sortArray';
 
@@ -56,22 +56,9 @@ export default class BinaryTree {
   }
 
   deleteItem(data) {
-    if (this.root === null) { throw new Error('The tree is empty!'); }
-
-    let currentNode = this.root;
-    let previousNode = null;
-
-    while (data !== currentNode.data) {
-      if (data < currentNode.data) {
-        previousNode = currentNode;
-        currentNode = currentNode.leftNode;
-      } else if (data > currentNode.data) {
-        previousNode = currentNode;
-        currentNode = currentNode.rightNode;
-      }
-    }
-
-    if (currentNode === null) { throw new Error('No such data!'); }
+    let node = this.find(data);
+    let currentNode = node.currentNode;
+    let previousNode = node.previousNode;
 
     if (currentNode.leftNode === null && currentNode.rightNode === null) {
       if (previousNode === null) { this.root = null; }
@@ -110,6 +97,27 @@ export default class BinaryTree {
     }
 
     return { node, previousNode };
+  }
+
+  find(data) {
+    if (this.root === null) { throw new Error('The tree is empty!'); }
+
+    let currentNode = this.root;
+    let previousNode = null;
+
+    while (data !== currentNode.data) {
+      if (data < currentNode.data) {
+        previousNode = currentNode;
+        currentNode = currentNode.leftNode;
+      } else if (data > currentNode.data) {
+        previousNode = currentNode;
+        currentNode = currentNode.rightNode;
+      }
+    }
+
+    if (currentNode === null) { throw new Error('No such data!'); }
+
+    return {currentNode, previousNode};
   }
 
   // print tree in the console
