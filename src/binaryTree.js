@@ -120,6 +120,10 @@ export default class BinaryTree {
     return {currentNode, previousNode};
   }
 
+  levelOrder(rootNode) {
+    
+  }
+
   // print tree in the console
   prettyPrint(node, prefix = '', isLeft = true) {
     if (node === null) { return; }
