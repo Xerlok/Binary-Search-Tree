@@ -3,6 +3,7 @@
 /* eslint-disable */
 import TreeNode from './treeNode';
 import sortArray from './sortArray';
+import Queue from './queue';
 
 export default class BinaryTree {
   constructor() {
@@ -120,8 +121,26 @@ export default class BinaryTree {
     return {currentNode, previousNode};
   }
 
-  levelOrder(rootNode) {
-    
+  levelOrder(rootNode, callback) {
+    const nodesDataList = [];
+    const queue = new Queue();
+
+    if (this.root === null) { throw new Error('The tree is empty!'); }
+
+    queue.enqueue(rootNode);
+    while(!queue.isEmpty()) {
+      let currentNode = queue.peek();
+      if (callback) {
+        callback(currentNode);
+      } else {
+        nodesDataList.push(currentNode.data);
+      }
+      queue.dequeue();
+      if (currentNode.leftNode) { queue.enqueue(currentNode.leftNode); }
+      if (currentNode.rightNode) { queue.enqueue(currentNode.rightNode); }
+    }
+
+    return nodesDataList;
   }
 
   // print tree in the console
