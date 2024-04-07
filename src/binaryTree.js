@@ -57,9 +57,10 @@ export default class BinaryTree {
   }
 
   deleteItem(data) {
-    let node = this.find(data);
-    let currentNode = node.currentNode;
-    let previousNode = node.previousNode;
+    const node = this.find(data);
+    if (node === null) { return; }
+    const { currentNode } = node;
+    const { previousNode } = node;
 
     if (currentNode.leftNode === null && currentNode.rightNode === null) {
       if (previousNode === null) { this.root = null; }
@@ -110,37 +111,55 @@ export default class BinaryTree {
       if (data < currentNode.data) {
         previousNode = currentNode;
         currentNode = currentNode.leftNode;
+        if (currentNode === null) { return null; }
       } else if (data > currentNode.data) {
         previousNode = currentNode;
         currentNode = currentNode.rightNode;
+        if (currentNode === null) { return null; }
       }
     }
 
-    if (currentNode === null) { throw new Error('No such data!'); }
-
-    return {currentNode, previousNode};
+    return { currentNode, previousNode };
   }
 
-  levelOrder(rootNode, callback) {
-    const nodesDataList = [];
+  /**
+   * Traverses a BST in a breadth level and executes a function on each if provided.
+   * @param {*} rootNode - Starting node of a tree.
+   * @param {*} callback - If a callback is not provided returns array of values.
+   * @returns
+   */
+  levelOrder(callback) {
+    const result = [];
     const queue = new Queue();
 
     if (this.root === null) { throw new Error('The tree is empty!'); }
 
-    queue.enqueue(rootNode);
-    while(!queue.isEmpty()) {
-      let currentNode = queue.peek();
+    queue.enqueue(this.root);
+    while (!queue.isEmpty()) {
+      const currentNode = queue.peek();
       if (callback) {
         callback(currentNode);
       } else {
-        nodesDataList.push(currentNode.data);
+        result.push(currentNode.data);
       }
       queue.dequeue();
       if (currentNode.leftNode) { queue.enqueue(currentNode.leftNode); }
       if (currentNode.rightNode) { queue.enqueue(currentNode.rightNode); }
     }
 
-    return nodesDataList;
+    return result;
+  }
+
+  inOrder(callback) {
+    
+  }
+
+  preOrder(callback) {
+
+  }
+
+  postOrder(callback) {
+
   }
 
   // print tree in the console
