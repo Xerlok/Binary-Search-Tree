@@ -128,13 +128,13 @@ export default class BinaryTree {
    * @param {*} callback - If a callback is not provided returns array of values.
    * @returns
    */
-  levelOrder(callback) {
+  levelOrder(node, callback) {
     const result = [];
     const queue = new Queue();
 
-    if (this.root === null) { throw new Error('The tree is empty!'); }
+    if (node === null) { throw new Error('The tree is empty!'); }
 
-    queue.enqueue(this.root);
+    queue.enqueue(node);
     while (!queue.isEmpty()) {
       const currentNode = queue.peek();
       if (callback) {
@@ -150,8 +150,14 @@ export default class BinaryTree {
     return result;
   }
 
-  inOrder(callback) {
-    
+  inOrder(node, callback) {
+    if (node === null) {
+      return;
+    }
+
+    this.inOrder(node.leftNode, callback);
+      callback(node);
+    this.inOrder(node.rightNode, callback);
   }
 
   preOrder(callback) {
