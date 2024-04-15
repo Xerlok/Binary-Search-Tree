@@ -160,12 +160,24 @@ export default class BinaryTree {
     this.inOrder(node.rightNode, callback);
   }
 
-  preOrder(callback) {
-
+  preOrder(node, callback) {
+    if (node === null) {
+      return;
+    }
+  
+    callback(node); // Process the current node first
+    this.preOrder(node.leftNode, callback);
+    this.preOrder(node.rightNode, callback);
   }
 
-  postOrder(callback) {
-
+  postOrder(node, callback) {
+    if (node === null) {
+      return;
+    }
+  
+    this.postOrder(node.leftNode, callback);
+    this.postOrder(node.rightNode, callback);
+    callback(node); // Process the current node last
   }
 
   // print tree in the console
