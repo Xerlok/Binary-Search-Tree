@@ -29,4 +29,5 @@ console.log("Post Order is: " + result);
 result = [];
 console.log("Height is: " + newTree.height(newTree.root));
 console.log("Depth is: " + newTree.depth(newTree.root));
+console.log("The tree is balanced: " + newTree.isBalanced(newTree.root));
 newTree.prettyPrint(newTree.root);
