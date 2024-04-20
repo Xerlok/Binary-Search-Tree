@@ -193,11 +193,11 @@ export default class BinaryTree {
   depth(node) {
     if (node == null) { return 0; }
     else {
-      /* compute the depth of each subtree */
+      // compute the depth of each subtree
       let lDepth = this.depth(node.leftNode);
       let rDepth = this.depth(node.rightNode);
 
-      /* use the larger one */
+      // use the larger one
       if (lDepth > rDepth) { return (lDepth + 1); }
       else { return (rDepth + 1); }
     }
@@ -210,14 +210,15 @@ export default class BinaryTree {
     let rightHeight = this.height(node.rightNode);
 
     let heightDifference = Math.abs(leftHeight - rightHeight);
-    console.log(leftHeight);
-    console.log(rightHeight);
-    console.log(heightDifference);
     if (heightDifference > 1) { return false; }
 
     this.isBalanced(node.leftNode);
     this.isBalanced(node.rightNode);
     return true;
+  }
+
+  rebalance(tree) {
+    this.buildTree(this.levelOrder(tree.root));
   }
 
   // print tree in the console
