@@ -156,7 +156,7 @@ export default class BinaryTree {
     }
 
     this.inOrder(node.leftNode, callback);
-      callback(node);
+    callback(node);
     this.inOrder(node.rightNode, callback);
   }
 
@@ -178,6 +178,29 @@ export default class BinaryTree {
     this.postOrder(node.leftNode, callback);
     this.postOrder(node.rightNode, callback);
     callback(node); // Process the current node last
+  }
+
+  height(node) {
+    if (node === null) { return 0; }
+
+    let leftHeight = this.height(node.leftNode);
+    let rightHeight = this.height(node.rightNode);
+
+    if (rightHeight > leftHeight) { return (rightHeight + 1); }
+    else { return (leftHeight + 1); }
+  }
+
+  depth(node) {
+    if (node == null) { return 0; }
+      else {
+        /* compute the depth of each subtree */
+        let lDepth = this.depth(node.leftNode);
+        let rDepth = this.depth(node.rightNode);
+
+        /* use the larger one */
+        if (lDepth > rDepth) { return (lDepth + 1); }
+        else { return (rDepth + 1); }
+      }
   }
 
   // print tree in the console
